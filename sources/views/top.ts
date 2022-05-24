@@ -1,3 +1,4 @@
+import IDataObject from "sources/utils/interfaces";
 import {JetView, plugins} from "webix-jet";
 
 export default class TopView extends JetView{
@@ -7,7 +8,7 @@ export default class TopView extends JetView{
 		const header = {
 			type: "header",
 			localId: "page_header",
-			template: obj => `<span class="template-header">${obj.name}</span>`,
+			template: (obj: IDataObject) => `<span class="template-header">${obj.name}</span>`,
 			css: "webix_header app_header"
 		};
 
@@ -23,20 +24,17 @@ export default class TopView extends JetView{
 			data: [
 				{
 					icon: "wxi-user",
-					// value: _("Contacts"),
-					value: "Contacts",
+					value: _("Contacts"),
 					id: "contacts"
 				},
 				{
 					icon: "wxi-calendar",
-					// value: _("Activities"),
-					value: "Activities",
+					value: _("Activities"),
 					id: "activities"
 				},
 				{
 					icon: "wxi-columns",
-					// value: _("Settings"),
-					value: "Settings",
+					value: _("Settings"),
 					id: "settings"}
 			]
 		};
