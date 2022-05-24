@@ -25,7 +25,7 @@ export default class ActivitiesForm extends JetView {
 				labelWidth: 100,
 				on: {
 					onFocus: () => {
-						const name: string = this.config.name;
+						const name = this.config.name;
 
 						if (name) {
 							this.clearFormValidation();
@@ -150,13 +150,14 @@ export default class ActivitiesForm extends JetView {
 			if (this._editMode === "add") {
 				activitiesCollection.add(dataValues);
 				webix.message("Added new activity!");
-			}else {
+			}
+			else {
 				activitiesCollection.updateItem(id, dataValues);
 				webix.message("Activity was updated!");
 			}
-
 			this.toggleCloseForm();
-		}else {
+		}
+		else {
 			webix.message(_("Form is incomplete. Fill the form!"));
 		}
 	}
@@ -188,8 +189,7 @@ export default class ActivitiesForm extends JetView {
 			this.activitiesForm.setValues(item);
 			if (contactId) contactCombo.disable();
 		}
-
-		 {
+		else {
 			this.activitiesForm.clear();
 			if (contactId) {
 				contactCombo.setValue(contactId);
