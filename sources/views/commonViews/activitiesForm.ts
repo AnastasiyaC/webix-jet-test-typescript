@@ -204,7 +204,6 @@ export default class ActivitiesForm extends JetView {
 	}
 
 	clearFormValidation(): void {
-		console.log("hello")
 		this.activitiesForm.clearValidation();
 	}
 }
