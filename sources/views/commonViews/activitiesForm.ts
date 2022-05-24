@@ -7,7 +7,7 @@ import contactsCollection from "../../models/contacts";
 interface IValues {
 	id: number;
 	[key: string]: any;
-  }
+}
 
 export default class ActivitiesForm extends JetView {
 	activitiesForm: webix.ui.form;
@@ -24,13 +24,7 @@ export default class ActivitiesForm extends JetView {
 			elementsConfig: {
 				labelWidth: 100,
 				on: {
-					onFocus: () => {
-						const name = this.config.name;
-
-						if (name) {
-							this.clearFormValidation();
-						}
-					}
+					onFocus: () => this.clearFormValidation()
 				}
 			},
 			elements: [
@@ -210,6 +204,7 @@ export default class ActivitiesForm extends JetView {
 	}
 
 	clearFormValidation(): void {
+		console.log("hello")
 		this.activitiesForm.clearValidation();
 	}
 }
