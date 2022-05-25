@@ -1,5 +1,8 @@
-import IDataObject from "sources/utils/interfaces";
 import {JetView, plugins} from "webix-jet";
+
+interface INameData {
+	name: string;
+}
 
 export default class TopView extends JetView{
 	config(){
@@ -8,7 +11,7 @@ export default class TopView extends JetView{
 		const header = {
 			type: "header",
 			localId: "page_header",
-			template: (obj: IDataObject) => `<span class="template-header">${obj.name}</span>`,
+			template: (obj: INameData) => `<span class="template-header">${obj.name}</span>`,
 			css: "webix_header app_header"
 		};
 

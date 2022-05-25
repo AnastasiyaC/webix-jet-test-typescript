@@ -1,7 +1,7 @@
 import {JetView} from "webix-jet";
 
 export default class ActivitiesFilterTabbar extends JetView {
-	tabbar: webix.ui.tabbar;
+	private tabbar: webix.ui.tabbar;
 
 	config() {
 		const _ = this.app.getService("locale")._;

@@ -1,9 +1,14 @@
 import {JetView} from "webix-jet";
 
 import ActivitiesForm from "./activitiesForm";
+import IActivitiesDatatableId from "../../utils/interfaces";
 
-export default class ActivitiesModalWindow extends JetView {
-	popupWindow: webix.ui.window;
+interface IActivitiesModalWindow {
+	showWindow(id: IActivitiesDatatableId | string): void;
+	hideWindow(): void;
+}
+export default class ActivitiesModalWindow extends JetView implements IActivitiesModalWindow{
+	private popupWindow: webix.ui.window;
 
 	config() {
 		return {
@@ -26,7 +31,7 @@ export default class ActivitiesModalWindow extends JetView {
 		});
 	}
 
-	showWindow(id: any): void {
+	showWindow(id: IActivitiesDatatableId | string): void {
 		this.popupWindow = this.getRoot() as webix.ui.window;
 		const _ = this.app.getService("locale")._;
 

@@ -4,14 +4,27 @@ import activitiesCollection from "../../models/activities";
 import activityTypesCollection from "../../models/activityTypes";
 import contactsCollection from "../../models/contacts";
 
-interface IValues {
+interface IActivitiesValues {
 	id: number;
-	[key: string]: any;
-}
+	Details: string;
+	TypeID: string;
+	ContactID: string;
+	State: string;
+	DueDate?: string;
+};
 
-export default class ActivitiesForm extends JetView {
-	activitiesForm: webix.ui.form;
-	_editMode: string;
+interface IActivitiesForm {
+	toggleCloseForm(): void;
+	toggleUpdateOrSave(): void;
+	showCurrentPage(): void;
+	setFormValues(): void;
+	setFormMode(mode: string): void;
+	clearFormValidation(): void;
+};
+
+export default class ActivitiesForm extends JetView implements IActivitiesForm{
+	private activitiesForm: webix.ui.form;
+	private _editMode: string;
 
 	config() {
 		const _ = this.app.getService("locale")._;
@@ -81,14 +94,14 @@ export default class ActivitiesForm extends JetView {
 							localId: "form_button-save",
 							css: "webix_primary button--border",
 							width: 150,
-							click: (): void => this.toggleUpdateOrSave()
+							click: () => this.toggleUpdateOrSave()
 						},
 						{
 							view: "button",
 							value: _("Cancel"),
 							css: "button--border",
 							width: 150,
-							click: (): void => this.toggleCloseForm()
+							click: () => this.toggleCloseForm()
 						}
 					]
 				}
@@ -137,7 +150,7 @@ export default class ActivitiesForm extends JetView {
 			const time: string = timeFormat(values.Time);
 
 			const {id, Details, TypeID, ContactID, State} = values;
-			const dataValues: IValues = {id, Details, TypeID, ContactID, State};
+			const dataValues: IActivitiesValues = {id, Details, TypeID, ContactID, State};
 			dataValues.DueDate = `${date} ${time}`;
 
 

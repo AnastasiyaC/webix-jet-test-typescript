@@ -1,3 +1,4 @@
-export default interface IDataObject {
-    [key: string]: any;
-}
+export default interface IActivitiesDatatableId {
+	row: number;
+	column: string
+};

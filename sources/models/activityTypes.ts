@@ -1,10 +1,13 @@
-import IDataObject from "sources/utils/interfaces";
+interface IActivityTypesData {
+	value: string;
+	Value: string;
+}
 
 const activityTypesCollection = new webix.DataCollection({
 	url: "http://localhost:8096/api/v1/activitytypes/",
 	save: "rest->http://localhost:8096/api/v1/activitytypes/",
 	scheme: {
-		$init: (obj: IDataObject) => {
+		$init: (obj: IActivityTypesData) => {
 			obj.value = obj.Value;
 		}
 	}
