@@ -1,7 +1,9 @@
 import {JetView} from "webix-jet";
 
-export default class SettingsView extends JetView {
-	config() {
+interface ISettingsView extends JetView {};
+
+export default class SettingsView extends JetView implements ISettingsView {
+	config(): any {
 		return {
 			template: "Settings"
 		};

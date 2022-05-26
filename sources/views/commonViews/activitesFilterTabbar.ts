@@ -1,9 +1,11 @@
 import {JetView} from "webix-jet";
 
-export default class ActivitiesFilterTabbar extends JetView {
+interface IActivitiesFilterTabbar extends JetView {};
+
+export default class ActivitiesFilterTabbar extends JetView implements IActivitiesFilterTabbar{
 	private tabbar: webix.ui.tabbar;
 
-	config() {
+	config(): any {
 		const _ = this.app.getService("locale")._;
 
 		const filterTabbar = {
@@ -45,7 +47,7 @@ export default class ActivitiesFilterTabbar extends JetView {
 		return filterTabbar;
 	}
 
-	init() {
+	init(): void {
 		this.tabbar = this.$$("activities_tabbar") as webix.ui.tabbar;
 
 		this.on(this.tabbar, "onAfterTabClick", (tabId: string) => this.app.callEvent("filterByTabName", [tabId]));

@@ -1,16 +1,16 @@
 import {JetView} from "webix-jet";
 
 import ActivitiesForm from "./activitiesForm";
-import IActivitiesDatatableId from "../../utils/interfaces";
+import IDatatableViewItemId from "../../utils/interfaces";
 
-interface IActivitiesModalWindow {
-	showWindow(id: IActivitiesDatatableId | string): void;
+interface IActivitiesModalWindow extends JetView{
+	showWindow(id: IDatatableViewItemId | string): void;
 	hideWindow(): void;
 }
 export default class ActivitiesModalWindow extends JetView implements IActivitiesModalWindow{
 	private popupWindow: webix.ui.window;
 
-	config() {
+	config(): any {
 		return {
 			view: "window",
 			localId: "window-center",
@@ -25,13 +25,13 @@ export default class ActivitiesModalWindow extends JetView implements IActivitie
 		};
 	}
 
-	init() {
+	init(): void {
 		this.on(this.app, "editor:close", () => {
 			this.hideWindow();
 		});
 	}
 
-	showWindow(id: IActivitiesDatatableId | string): void {
+	showWindow(id: IDatatableViewItemId | string): void {
 		this.popupWindow = this.getRoot() as webix.ui.window;
 		const _ = this.app.getService("locale")._;
 

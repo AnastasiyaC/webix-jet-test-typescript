@@ -6,7 +6,7 @@ declare const VERSION;
 declare const BUILD_AS_MODULE;
 
 export default class MyApp extends JetApp{
-	constructor(config = {}){
+	constructor(config = {}) {
 		const defaults = {
 			id 		: APPNAME,
 			version : VERSION,

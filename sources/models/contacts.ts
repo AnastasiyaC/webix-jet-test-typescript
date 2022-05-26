@@ -1,11 +1,4 @@
-interface IContactsData {
-	value: string;
-	FirstName: string;
-	LastName: string;
-	Birthday: string | Date;
-	StartDate: string | Date;
-	BirthdayDate: string;
-}
+import IContactsData from "../utils/interfaces";
 
 const contactsCollection = new webix.DataCollection({
 	url: "http://localhost:8096/api/v1/contacts/",

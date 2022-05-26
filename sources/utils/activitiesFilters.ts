@@ -18,21 +18,21 @@ interface IFilters {
 }
 
 const activitiesFilters: IFilters = {
-	Overdue: obj => obj.State === "Open" && obj.DueDate < new Date(),
-	Completed: obj => obj.State === "Close",
-	Today: obj => webix.Date.equal(webix.Date.dayStart(obj.DueDate), webix.Date.dayStart(new Date())),
-	Tomorrow: obj => {
+	Overdue: (obj: IInnerData): boolean => obj.State === "Open" && obj.DueDate < new Date(),
+	Completed: (obj: IStateData): boolean => obj.State === "Close",
+	Today: (obj: IDueDateData): boolean => webix.Date.equal(webix.Date.dayStart(obj.DueDate), webix.Date.dayStart(new Date())),
+	Tomorrow: (obj: IDueDateData): boolean => {
 		const tomorrowDayStart = webix.Date.add(webix.Date.dayStart(new Date()), 1, "day", false);
 
 		return webix.Date.equal(webix.Date.dayStart(obj.DueDate), tomorrowDayStart);
 	},
-	ThisWeek: obj => {
+	ThisWeek: (obj: IDueDateData): boolean => {
 		const weeekStart = webix.Date.weekStart(new Date());
 		const weekEnd = webix.Date.add(webix.Date.weekStart(new Date()), 1, "week", false);
 
 		return obj.DueDate >= weeekStart && obj.DueDate <= weekEnd;
 	},
-	ThisMonth: obj => {
+	ThisMonth: (obj: IDueDateData): boolean => {
 		const monthStart = webix.Date.monthStart(new Date());
 		const monthEnd = webix.Date.add(webix.Date.monthStart(new Date()), 1, "month", false);
 

@@ -6,28 +6,20 @@ import contactsCollection from "../../models/contacts";
 import activitiesFilters from "../../utils/activitiesFilters";
 import ActivitiesFilterTabbar from "./activitesFilterTabbar";
 import ActivitiesModalWindow from "./activitiesModalWindow";
-import IActivitiesDatatableId from "../../utils/interfaces";
+import IDatatableViewItemId from "../../utils/interfaces";
+import IActivitiesData from "../../utils/interfaces";
 
-interface IContactData {
-	ContactID: number;
-};
-
-interface IActivityTypeData {
-	TypeID: number;
-};
-
-interface IActivitiesDatatable {
-	readonly _hiddenColumn: string;
+interface IActivitiesDatatable extends JetView {
 	toggleAddActivity(): void;
-	toggleEditActivity(id: IActivitiesDatatableId): void;
-	toggleDeleteItem(id: IActivitiesDatatableId): void;
+	toggleEditActivity(id: IDatatableViewItemId): void;
+	toggleDeleteItem(id: IDatatableViewItemId): void;
 	compareDates(value: Date, filter: Date): boolean;
 	filterByContactName(): void;
 	filterByTabFilterName(): void
 };
 
 export default class ActivitiesDatatable extends JetView implements IActivitiesDatatable {
-    readonly _hiddenColumn: string;
+    private _hiddenColumn: string;
     private datatable: webix.ui.datatable;
 	private windowForm: ActivitiesModalWindow;
     private _tabId: string;
@@ -84,7 +76,7 @@ export default class ActivitiesDatatable extends JetView implements IActivitiesD
 					collection: activityTypesCollection,
 					sort: "text",
 					fillspace: true,
-					template: (obj: IActivityTypeData) => {
+					template: (obj: IActivitiesData) => {
 						const activityType = activityTypesCollection.getItem(obj.TypeID);
 						const activityIcon = activityType ? `<span class="webix_icon mdi mdi-${activityType.Icon}"></span>` : " ";
 						const activityValue = activityType ? activityType.Value : "activity not found";
@@ -125,7 +117,7 @@ export default class ActivitiesDatatable extends JetView implements IActivitiesD
 					collection: contactsCollection,
 					fillspace: true,
 					sort: "text",
-					template: (obj: IContactData) => {
+					template: (obj: IActivitiesData) => {
 						const contact = contactsCollection.getItem(obj.ContactID);
 
 						return contact ? contact.value : "contact not found";
@@ -145,10 +137,10 @@ export default class ActivitiesDatatable extends JetView implements IActivitiesD
 				}
 			],
 			onClick: {
-				"wxi-trash": (e: Event, id: IActivitiesDatatableId) => {
+				"wxi-trash": (e: Event, id: IDatatableViewItemId) => {
 					this.toggleDeleteItem(id);
 				},
-				"wxi-pencil": (e: Event, id: IActivitiesDatatableId) => {
+				"wxi-pencil": (e: Event, id: IDatatableViewItemId) => {
 					this.toggleEditActivity(id);
 				}
 			}
@@ -182,7 +174,6 @@ export default class ActivitiesDatatable extends JetView implements IActivitiesD
 			activityTypesCollection.waitData,
 			contactsCollection.waitData
 		]).then(() => {
-            // this.datatable.sync(activitiesCollection, null, false);
 			this.datatable.parse(activitiesCollection, "json");
 			this.filterByContactName();
 
@@ -211,11 +202,11 @@ export default class ActivitiesDatatable extends JetView implements IActivitiesD
 		this.windowForm.showWindow("");
 	}
 
-	toggleEditActivity(id: IActivitiesDatatableId): void {
+	toggleEditActivity(id: IDatatableViewItemId): void {
 		this.windowForm.showWindow(id);
 	}
 
-	toggleDeleteItem(id: IActivitiesDatatableId): void {
+	toggleDeleteItem(id: IDatatableViewItemId): void {
 		const _ = this.app.getService("locale")._;
 
 		webix.confirm({
@@ -242,7 +233,6 @@ export default class ActivitiesDatatable extends JetView implements IActivitiesD
 	}
 
 	filterByTabFilterName(): void {
-		if (this._hiddenColumn) return;
-		if (this._tabId) this.datatable.filter(activitiesFilters[this._tabId], null, true);
+		if (!this._hiddenColumn && this._tabId) this.datatable.filter(activitiesFilters[this._tabId], null, true);
 	}
 }

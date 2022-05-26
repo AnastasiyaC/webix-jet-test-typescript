@@ -1,7 +1,4 @@
-interface IActivityTypesData {
-	value: string;
-	Value: string;
-}
+import IActivityTypesData from "../utils/interfaces";
 
 const activityTypesCollection = new webix.DataCollection({
 	url: "http://localhost:8096/api/v1/activitytypes/",

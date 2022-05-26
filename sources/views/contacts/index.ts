@@ -1,7 +1,9 @@
 import {JetView} from "webix-jet";
 
-export default class ContactsView extends JetView {
-	config() {
+interface IContactsView extends JetView {};
+
+export default class ContactsView extends JetView implements IContactsView{
+	config(): any {
 		return {
 			template: "Contacts"
 		};

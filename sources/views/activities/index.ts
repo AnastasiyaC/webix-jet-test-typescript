@@ -2,8 +2,10 @@ import {JetView} from "webix-jet";
 
 import ActivitiesDatatable from "../commonViews/activitiesDatatable";
 
-export default class ActivitiesView extends JetView {
-	config() {
+interface IActivitiesView extends JetView {};
+
+export default class ActivitiesView extends JetView implements IActivitiesView{
+	config(): any {
 		return {
 			rows: [
 				ActivitiesDatatable

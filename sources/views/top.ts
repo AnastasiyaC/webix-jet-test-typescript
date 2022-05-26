@@ -4,8 +4,10 @@ interface INameData {
 	name: string;
 }
 
-export default class TopView extends JetView{
-	config(){
+interface ITopView extends JetView {};
+
+export default class TopView extends JetView implements ITopView {
+	config(): any {
 		const _ = this.app.getService("locale")._;
 
 		const header = {
@@ -60,7 +62,7 @@ export default class TopView extends JetView{
 		return ui;
 	}
 
-	init() {
+	init(): void {
 		this.use(plugins.Menu, "top:menu");
 
 		const header = this.$$("page_header") as webix.ui.template;

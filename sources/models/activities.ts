@@ -1,7 +1,4 @@
-interface IActivitiesData {
-	date: string | Date;
-	DueDate: string | Date;
-}
+import IActivitiesData from "../utils/interfaces";
 
 const activitiesCollection = new webix.DataCollection({
 	url: "http://localhost:8096/api/v1/activities/",

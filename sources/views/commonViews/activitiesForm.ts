@@ -3,17 +3,19 @@ import {JetView} from "webix-jet";
 import activitiesCollection from "../../models/activities";
 import activityTypesCollection from "../../models/activityTypes";
 import contactsCollection from "../../models/contacts";
+import IActivitiesData from "../../utils/interfaces";
 
-interface IActivitiesValues {
-	id: number;
-	Details: string;
-	TypeID: string;
-	ContactID: string;
-	State: string;
-	DueDate?: string;
+interface IActivitiesValues extends IActivitiesData{
+	Date: string | Date;
+	Time: string | Date;
 };
 
-interface IActivitiesForm {
+interface IUrlParams {
+	activityId?: string;
+	contactId?: string
+}
+
+interface IActivitiesForm extends JetView {
 	toggleCloseForm(): void;
 	toggleUpdateOrSave(): void;
 	showCurrentPage(): void;
@@ -26,7 +28,7 @@ export default class ActivitiesForm extends JetView implements IActivitiesForm{
 	private activitiesForm: webix.ui.form;
 	private _editMode: string;
 
-	config() {
+	config(): any {
 		const _ = this.app.getService("locale")._;
 
 		const activitiesForm = {
@@ -118,7 +120,7 @@ export default class ActivitiesForm extends JetView implements IActivitiesForm{
 		return activitiesForm;
 	}
 
-	init() {
+	init(): void {
 		this.activitiesForm = this.$$("activities_edit-form") as webix.ui.form;
 
 		webix.promise.all([
@@ -141,7 +143,7 @@ export default class ActivitiesForm extends JetView implements IActivitiesForm{
 		const _ = this.app.getService("locale")._;
 
 		if (this.activitiesForm.validate()) {
-			const values = this.activitiesForm.getValues();
+			const values: IActivitiesValues  = this.activitiesForm.getValues();
 
 			const dateFormat: webix.WebixCallback = webix.Date.dateToStr("%Y-%m-%d", false);
 			const date: string = dateFormat(values.Date);
@@ -149,17 +151,15 @@ export default class ActivitiesForm extends JetView implements IActivitiesForm{
 			const timeFormat: webix.WebixCallback = webix.Date.dateToStr("%H:%i", false);
 			const time: string = timeFormat(values.Time);
 
-			const {id, Details, TypeID, ContactID, State} = values;
-			const dataValues: IActivitiesValues = {id, Details, TypeID, ContactID, State};
-			dataValues.DueDate = `${date} ${time}`;
+			values.DueDate = `${date} ${time}`;
 
 
 			if (this._editMode === "add") {
-				activitiesCollection.add(dataValues);
+				activitiesCollection.add(values);
 				webix.message("Added new activity!");
 			}
 			else {
-				activitiesCollection.updateItem(id, dataValues);
+				activitiesCollection.updateItem(values.id, values);
 				webix.message("Activity was updated!");
 			}
 			this.toggleCloseForm();
@@ -170,7 +170,7 @@ export default class ActivitiesForm extends JetView implements IActivitiesForm{
 	}
 
 	showCurrentPage(): void {
-		const params = this.getUrl()[0].params;
+		const params: IUrlParams = this.getUrl()[0].params;
 		const contactId = params.contactId;
 
 		if (contactId) {
@@ -182,7 +182,7 @@ export default class ActivitiesForm extends JetView implements IActivitiesForm{
 	}
 
 	setFormValues(): void {
-		const params = this.getUrl()[0].params;
+		const params: IUrlParams = this.getUrl()[0].params;
 		const activityId = params.activityId;
 		const contactId = params.contactId;
 		const contactCombo = this.$$("contact_combo") as webix.ui.combo;
