@@ -6,8 +6,9 @@ import contactsCollection from "../../models/contacts";
 import activitiesFilters from "../../utils/activitiesFilters";
 import ActivitiesFilterTabbar from "./activitesFilterTabbar";
 import ActivitiesModalWindow from "./activitiesModalWindow";
-import IDatatableViewItemId from "../../utils/interfaces";
-import IActivitiesData from "../../utils/interfaces";
+import IDatatableViewItemId from "../../utils/interfaces/datatableViewItemIdInterface";
+import IActivitiesData from "../../utils/interfaces/activitiesDataInterface";
+import IActivitiesModalWindow from "sources/utils/interfaces/activityModalWindowInterface";
 
 interface IActivitiesDatatable extends JetView {
 	toggleAddActivity(): void;
@@ -21,7 +22,7 @@ interface IActivitiesDatatable extends JetView {
 export default class ActivitiesDatatable extends JetView implements IActivitiesDatatable {
     private _hiddenColumn: string;
     private datatable: webix.ui.datatable;
-	private windowForm: ActivitiesModalWindow;
+	private windowForm: IActivitiesModalWindow;
     private _tabId: string;
 
 	constructor(app: IJetApp, hiddenColumn: string, config = {}) {
@@ -29,7 +30,7 @@ export default class ActivitiesDatatable extends JetView implements IActivitiesD
 		this._hiddenColumn = hiddenColumn;
 	}
 
-	config() {
+	config(): any {
 		const _ = this.app.getService("locale")._;
 
 		const toolbar = {
@@ -160,14 +161,14 @@ export default class ActivitiesDatatable extends JetView implements IActivitiesD
 		return ui;
 	}
 
-	init() {
+	init(): void {
 		this.datatable = this.$$("activities_datatable") as webix.ui.datatable;
 
 		if (this._hiddenColumn) {
 			this.datatable.hideColumn(this._hiddenColumn);
 		}
 
-		this.windowForm = this.ui(ActivitiesModalWindow) as ActivitiesModalWindow;
+		this.windowForm = this.ui(ActivitiesModalWindow) as IActivitiesModalWindow;
 
 		webix.promise.all([
 			activitiesCollection.waitData,
@@ -193,7 +194,7 @@ export default class ActivitiesDatatable extends JetView implements IActivitiesD
 		});
 	}
 
-	urlChange() {
+	urlChange(): void {
 		this.datatable.filterByAll();
 		this.filterByContactName();
 	}
@@ -229,7 +230,7 @@ export default class ActivitiesDatatable extends JetView implements IActivitiesD
 	filterByContactName(): void {
 		const contactId = this.getParam("contactId", false);
 
-		if (contactId) this.datatable.filter("#Conta {ctID#", contactId, true);
+		if (contactId) this.datatable.filter("#ContactID#", contactId, true);
 	}
 
 	filterByTabFilterName(): void {

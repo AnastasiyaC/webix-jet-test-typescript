@@ -1,12 +1,9 @@
 import {JetView} from "webix-jet";
 
 import ActivitiesForm from "./activitiesForm";
-import IDatatableViewItemId from "../../utils/interfaces";
+import IDatatableViewItemId from "../../utils/interfaces/datatableViewItemIdInterface";
+import IActivitiesModalWindow from "../../utils/interfaces/activityModalWindowInterface";
 
-interface IActivitiesModalWindow extends JetView{
-	showWindow(id: IDatatableViewItemId | string): void;
-	hideWindow(): void;
-}
 export default class ActivitiesModalWindow extends JetView implements IActivitiesModalWindow{
 	private popupWindow: webix.ui.window;
 

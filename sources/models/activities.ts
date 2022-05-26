@@ -1,4 +1,4 @@
-import IActivitiesData from "../utils/interfaces";
+import IActivitiesData from "../utils/interfaces/activitiesDataInterface";
 
 const activitiesCollection = new webix.DataCollection({
 	url: "http://localhost:8096/api/v1/activities/",

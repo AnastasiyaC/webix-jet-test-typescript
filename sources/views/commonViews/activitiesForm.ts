@@ -3,7 +3,7 @@ import {JetView} from "webix-jet";
 import activitiesCollection from "../../models/activities";
 import activityTypesCollection from "../../models/activityTypes";
 import contactsCollection from "../../models/contacts";
-import IActivitiesData from "../../utils/interfaces";
+import IActivitiesData from "../../utils/interfaces/activitiesDataInterface";
 
 interface IActivitiesValues extends IActivitiesData{
 	Date: string | Date;
