@@ -5,3 +5,107 @@
     transition: opacity 500ms;
     opacity: 1;
 }
+.template-header {
+    font-size: 20px;
+    float: left;
+    margin-left: 10%;
+}
+.template-header {
+    font-size: 20px;
+    float: left;
+    margin-left: 10%;
+}
+.list-contact .webix_list_item{
+    display: flex;
+    align-items: center;
+    column-gap: 16px;
+}
+.contact__image{
+    border-radius: 50%;
+    object-fit: contain;
+}
+.contact__name{
+    line-height: 22px;
+    text-transform: capitalize;
+}
+.template__contact-name .webix_template{
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+.button--border .webix_button {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.template--grid_contact-info .webix_template .contact-info{
+    display: grid;
+    grid-template-areas:
+    "photo details" 
+    "status .";
+    grid-template-columns: 160px auto;  
+    grid-template-rows: 160px 25px; 
+    grid-gap: 20px;
+}
+.label__form-label .webix_el_box{
+    font-size: 30px;
+}
+.template__form-photo .webix_template{
+    padding: 0;
+}
+.contact-form__photo{
+    height: inherit;
+    width: inherit;
+}
+.contact-name{
+    font-size: 34px;
+    overflow: hidden;
+}
+.contact-info__photo{
+    grid-area: photo;
+}
+.contact-info__image,
+.contact-form__image{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+}
+.contact-form__image{
+    object-position: left bottom;
+}
+.contact-info__status{
+    grid-area: status;
+    align-self: center;
+    justify-self: center;
+}
+.contact-info__details{
+    grid-area: details;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    grid-gap: 22px;
+}
+.details__item {
+    display: flex;
+    align-items: center;
+    grid-gap: 6px;
+}
+@media screen and (max-width: 1224px) {
+    .template--grid_contact-info .webix_template .contact-info{
+        grid-gap: 30px;
+    }
+    .contact-name{
+        font-size: 34px;
+    }
+    .contact-info__details{
+        flex-wrap: nowrap;
+        grid-gap: 22px;
+    }
+}
+@media screen and (max-width: 1024px) {
+    .template--grid_contact-info .webix_template .contact-info{
+        grid-gap: 20px;
+    }
+    .contact-name{
+        font-size: 24px;
+    }
+}
