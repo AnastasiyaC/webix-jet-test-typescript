@@ -96,7 +96,7 @@ export default class ContactsList extends JetView implements IcontactsList {
 		this.on(this.listFilter, "onTimedKeyPress", () => {
 			this.filterList();
 			if (!this.list.getFirstId()) this.show("./contacts.contactInfo");
-			this.list.select(String(this.list.getFirstId()), false);
+			else this.list.select(String(this.list.getFirstId()), false);
 		});
 		this.on(this.app, "contactInfo:open", () => this.list.unselectAll());
 		this.on(this.app, "contactForm:open", () => this.listFilter.disable());
