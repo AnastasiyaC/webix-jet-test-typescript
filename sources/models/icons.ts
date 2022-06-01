@@ -1,6 +1,6 @@
 import IIconsData from "../utils/interfaces/iconsDataInterface";
 
-const icons: Array<IIconsData> = [
+const icons: IIconsData[] = [
 	{
 		id: "flag",
 		Icon: "flag"
