@@ -1,7 +1,7 @@
-export default interface IContacsData {
+export default interface IContactData {
 	id: number;
 	Address: string;
-	Birthday: string | Date;
+	Birthday: Date;
 	Company: string;
 	Email: string;
 	FirstName: string;
@@ -10,7 +10,7 @@ export default interface IContacsData {
 	Phone: string;
 	Photo: string;
 	Skype: string;
-	StartDate: string | Date;
+	StartDate: Date;
 	StatusID: number;
 	Website: string;
 	BirthdayDate?: string;
