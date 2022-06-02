@@ -98,7 +98,9 @@ export default class ContactsList extends JetView implements IcontactsList {
 			if (!this.list.getFirstId()) this.show("./contacts.contactInfo");
 			else this.list.select(String(this.list.getFirstId()), false);
 		});
-		this.on(this.app, "contactInfo:open", () => this.list.unselectAll());
+		this.on(this.app, "contactInfo:open", (id: string) => {
+			if(!id) this.list.unselectAll();
+		});
 		this.on(this.app, "contactForm:open", () => this.listFilter.disable());
 		this.on(this.app, "contactForm:close", (id: string) => {
 			if (this.list.isSelected(id)) this.app.callEvent("contactInfo:open", [id]);
